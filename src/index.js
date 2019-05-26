@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import './customize.css';
-import Homepage from './Homepage';
-import Withdraw from './Withdraw';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-ReactDOM.render(<Withdraw />, document.getElementById('root'));
+import './css/global.css';
+
+import Homepage from './homepage';
+import Deposit from './deposit';
+import Withdraw from './withdraw';
+
+class App extends Component {
+
+    render() {
+
+        return (
+
+            <Router>
+
+              <Switch>
+
+                  <Route exact path='/' component={Homepage} />
+                  <Route path='/deposit' component={Deposit} />
+                  <Route path='/withdraw' component={Withdraw} />
+
+              </Switch>
+
+            </Router>
+
+         );
+    }
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
