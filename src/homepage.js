@@ -30,9 +30,7 @@ class Homepage extends React.Component {
 
             <br/>
 
-            <a href="/en/cashier/forwardws.html?action=deposit" id="payment_methods">
-                <img class="image" id="payment_methods_icon" src="https://www.binary.com/images/pages/cashier/payment-methods.svg"/>
-            </a>
+            <img class="image" id="payment_methods_icon" src="https://www.binary.com/images/pages/cashier/payment-methods.svg"/>
 
             <br/>
             <br/>

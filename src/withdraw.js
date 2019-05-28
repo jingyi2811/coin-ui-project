@@ -1,103 +1,86 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 class Withdraw extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
-      data: 'Initial data...'
-    }
-    this.updateState = this.updateState.bind(this);
+
+            text: "",
+            address: "",
+            amount: "0"
+
+        }
+
+        this.handleChangeAddress = this.handleChangeAddress.bind(this);
+        this.handleChangeAmount = this.handleChangeAmount.bind(this);
   };
 
-  updateState() {
+  withdraw() {
 
-    /*
-    this.setState({ loading: true, disabled: true }, () =>
-    {
-      fetch('http://ubuntu:90/common-cgi/trainee/krunal/my-app/src/database/insert.pl',
-        {
-          method: 'POST',
-          headers:
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(fields)
+    axios.get('http://127.0.0.1:5000/coin_withdraw?to_address=' + this.state.address + '&amount=' + this.state.amount)
+       .then(res => {
 
-        }).then(res => {
-          //.then(res => res.text()).then(text => {
-              alert("Success");
-            //  this.setState({
-            //    json_response: json_response
-            //})
+            this.setState({text: 'Withdrawing coin, transaction id is ' + res.data});
+       })
+  }
 
-              //JSON.stringify(json_response);
-              //alert(json_response.Username);
-              //fields["Username"] = "";
-              //fields["lastname"] = "";
-              //fields["email"] = "";
-              //fields["message"] = "";
-              //this.setState({fields:fields});
+  handleChangeAddress(event) {
+    this.setState({address: event.target.value})
+  }
 
-          }).catch((error) =>
-          {
-            console.error(error.toString());
-            this.setState({ loading: false, disabled: false });
-          });
-        });*/
-  };
+  handleChangeAmount(event) {
+    this.setState({amount: event.target.value})
+  }
 
   render() {
 
     return (
 
-    <div class="background">
 
-        <br/>
+        <div class="background">
 
-        <h1 class="h1_txt">Withdraw LTC</h1>
+            <br/>
 
-        <br/>
+            <h1 class="h1_txt">Withdraw LTC</h1>
 
-        <h3 class="h3_txt">Account ID: CR840750</h3>
+            <br/>
 
-        <h3 class="h3_txt">Withdraw Litecoin (LTC) to your wallet</h3>
+            <h3 class="h3_txt">Withdraw Litecoin (LTC) to your wallet</h3>
 
-        <br/>
+            <br/>
 
-        <label class="label_txt"> Enter your address (LTC): </label>
+            <label class="label_txt"> Enter your address (LTC): </label>
 
-        <br/>
+            <br/> <br/>
 
-        <input type="number" name="amount" class="input" required="required" size="45" autocomplete="off" min="0.05413534" step="any" data-precision="8"/>
+            <input type="text" name="address" class="input" required="required" size="60" value={this.state.address} onChange={this.handleChangeAddress.bind(this)}/>
 
-        <br/>
+            <br/> <br/>
 
-        <label class="label_txt"> Enter the amount (LTC): </label>
+            <label class="label_txt"> Enter the amount (LTC): </label>
 
-        <br/>
+            <br/> <br/>
 
-        <input type="number" name="amount" class="input" required="required" size="45" autocomplete="off" min="0.05413534" step="any" data-precision="8"/>
+            <input type="number" name="amount" class="input" required="required" size="45" value={this.state.amount} onChange={this.handleChangeAmount.bind(this)}/>
 
-        <div>
+            <br/> <br/>
 
-            <a>
-                <span class="button">
-                    Withdraw
-                </span>
-            </a>
+            <button class="button" onClick={(e) => this.withdraw(e)}>
+              Withdraw
+            </button>
+
+            <br/>
+            <h5> {this.state.text}</h5>
+            <br/>
+            <br/>
+
+            <Link to="/">Back</Link>
 
         </div>
-
-        <br/>
-        <br/>
-        <br/>
-
-        <Link to="/">Back</Link>
-
-    </div>
 
         );
       }
