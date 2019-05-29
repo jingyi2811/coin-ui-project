@@ -82,9 +82,9 @@ class Withdraw extends React.Component {
 
         </div>
 
-        );
-      }
-    }
+    );
+  }
+}
     
 export default Withdraw;
 

@@ -11,7 +11,6 @@ class Deposit extends React.Component {
     this.state = {
         text: "After you have made your deposit, please wait for 5 - 30 minutes for the system to update your balance.",
         address: "",
-        //address: "QRos3MJZt3j97Huibn9NJQbXGmExUjVZji",
         amount: "0"
     }
 
@@ -22,21 +21,19 @@ class Deposit extends React.Component {
     axios.get('http://127.0.0.1:5000/get_an_address')
     .then(res => {this.setState({address: res.data});})
 
-    //this.setState({address: 'QRos3MJZt3j97Huibn9NJQbXGmExUjVZji'});
-
     this.timerID = setInterval(() =>
 
     axios.get('http://127.0.0.1:5000/coin_deposit?to_address=' + this.state.address)
         .then(res => {
                this.setState({
-                          amount: res.data
-                        });
+                  amount: res.data
+                });
 
-                        if(this.state.amount > 0){
-                            this.setState({text: 'Important: Please use the address above only once. For subsequent deposits, please press back again to generate a new address.'});
-                        }
+                if(this.state.amount > 0){
+                    this.setState({text: 'Important: Please use the address above only once. For subsequent deposits, please press back again to generate a new address.'});
+                }
 
-                        }), 1000 )
+            }), 1000 )
 
   }
 
@@ -44,33 +41,33 @@ class Deposit extends React.Component {
 
     return (
 
-            <div class="background">
+        <div class="background">
 
-                <br/> <br/>
+            <br/> <br/>
 
-                <h1> Deposit LTC </h1>
+            <h1> Deposit LTC </h1>
 
-                <br/>
+            <br/>
 
-                <h3> Send your Litecoin (LTC) to this address: </h3>
+            <h3> Send your Litecoin (LTC) to this address: </h3>
 
-                <h3> {this.state.address} </h3>
+            <h3> {this.state.address} </h3>
 
-                <br/>
+            <br/>
 
-                <h3> We have received {this.state.amount} amount. </h3>
+            <h3> We have received {this.state.amount} amount. </h3>
 
-                <h5> {this.state.text}</h5>
+            <h5> {this.state.text}</h5>
 
-                <br/> <br/>
+            <br/> <br/>
 
-                <Link to="/">Back</Link>
+            <Link to="/">Back</Link>
 
-             </div>
+         </div>
 
-            );
-        }
+        );
     }
+}
 
 export default Deposit;
 
